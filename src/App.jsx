@@ -5,7 +5,7 @@ import { getTheme } from "./components/utils"
 import ThemeProvider from "./components/themes/ThemeProvider";
 
 export default function App() {
-  const theme = getTheme(1);
+  const theme = getTheme();
 
   return (
     <React.Fragment>
