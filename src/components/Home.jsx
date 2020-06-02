@@ -18,11 +18,9 @@ export default function Home() {
   const { selectedTheme, setSelectedTheme } = React.useContext(ThemeContext);
 
   function switchNightMode() {
-    console.log(`Previous Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
     setSelectedTheme(Themes.dark);
   }
   function switchLightMode() {
-    console.log(`Previous Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
     setSelectedTheme(Themes.light);
   }
   const classes = useStyles();
