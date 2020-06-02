@@ -6,7 +6,8 @@ import Home from "./components/Home";
 export default function App() {
   return (
     <React.Fragment>
-      <MyTheme 
+      <MyTheme
+        // read the docs about Main Component in ./components/themes/index.jsx
         defaultTheme={"light"}
         currentTheme={"light"}
       >

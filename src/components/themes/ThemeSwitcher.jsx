@@ -26,7 +26,7 @@ export default function ThemeSwitcher(props) {
   }
 
   return (
-    <IconButton {...props} onClick={toggleTheme} title="Toggle light/dark theme" aria-label="Toggle light/dark theme" component="span">
+    <IconButton {...props} onClick={toggleTheme}>
       { (selectedTheme.palette.type === 'light') ? <LightModeActiveIcon /> : <DarkModeActiveIcon /> }
     </IconButton>
   );

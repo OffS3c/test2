@@ -1,14 +1,8 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useLocation,
   useParams
 } from "react-router-dom";
-import Container from "@material-ui/core/Container";
+
 export default function BlogDetail({blogPostsArray}){
   const params = useParams();
   const detailId = params.id;
@@ -25,7 +19,7 @@ export default function BlogDetail({blogPostsArray}){
   return(
  <div style={textcenter} >
    
-      <img style={imgfluid} src="https://www.sciencealert.com/images/2020-04/processed/CanWeGetRonaFromPets_1024.jpg" ></img>
+      <img style={imgfluid} src="https://www.sciencealert.com/images/2020-04/processed/CanWeGetRonaFromPets_1024.jpg" alt={"asdas"}></img>
       <h2>{blogPost.blogDetail}</h2>
       </div>
   );
