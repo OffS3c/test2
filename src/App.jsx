@@ -1,17 +1,17 @@
-import React from 'react';
-import 'typeface-roboto';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { getTheme } from "./components/utils"
+import React from "react";
+import "typeface-roboto";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
 import ThemeProvider from "./components/themes/ThemeProvider";
+import Home from "./components/Home";
 
 export default function App() {
-  const theme = getTheme();
-
+  
   return (
     <React.Fragment>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
-        asdhjkasd
+      <ThemeProvider>
+        <Home />
       </ThemeProvider>
     </React.Fragment>
   );
