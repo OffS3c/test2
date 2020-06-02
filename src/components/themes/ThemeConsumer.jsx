@@ -8,7 +8,7 @@ export default function ThemeConsumer({ children }) {
   const theme = createMuiTheme(selectedTheme);
 
   React.useEffect(()=>{
-    console.info(`You Selected New Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
+    console.info(`[INFO] Selected Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
   }, [selectedTheme]);
 
   return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
