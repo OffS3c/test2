@@ -12,10 +12,6 @@ export default function ThemeProvider({ children }) {
     setSelectedTheme,
   };
 
-  React.useEffect(()=>{
-    console.log(`Provider Current Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
-  }, [selectedTheme]);
-
   return (
     <ThemeContext.Provider value={themeAndSetter}>
         <ThemeConsumer>
