@@ -8,7 +8,7 @@ export default function App() {
     <React.Fragment>
       <MyTheme 
         defaultTheme={"light"}
-        currentTheme={"dark"}
+        currentTheme={"light"}
       >
         <Home />
       </MyTheme>
