@@ -1,39 +1,26 @@
 import React from "react";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 
-import LightTheme from "./LightMode";
-import DarkTheme from "./DarkMode";
+import Themes from "./Themes";
 import ThemeContext from "./ThemeContext";
-
-const Themes = {
-  light: LightTheme,
-  dark: DarkTheme,
-};
-
-// const setTheme = (name) => {
-//   if ((Object.keys(themes).filter(themeName => themeName === name)).length > 0) {
-//     setSelectedTheme(themes[name]);
-//     alert("selected");
-//   } else {
-//     alert("not selected");
-//   }
-// }
+import ThemeConsumer from "./ThemeConsumer";
 
 export default function ThemeProvider({ children }) {
 
-  const [selectedTheme, setSelectedTheme] = React.useState(themes.light);
+  const [selectedTheme, setSelectedTheme] = React.useState(Themes.light);
+  const themeAndSetter = {
+    selectedTheme,
+    setSelectedTheme,
+  };
+
+  React.useEffect(()=>{
+    console.log(`Provider Current Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
+  }, [selectedTheme]);
 
   return (
-    <ThemeContext.Provider>
-      <ThemeContext.Consumer >
-        <MuiThemeProvider theme={value.theme}>
+    <ThemeContext.Provider value={themeAndSetter}>
+        <ThemeConsumer>
           {children}
-        </MuiThemeProvider>
-      </ThemeContext.Consumer>
+        </ThemeConsumer>
     </ThemeContext.Provider>
   );
 }
-
-export {
-  Themes,
-};

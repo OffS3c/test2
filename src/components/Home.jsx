@@ -1,8 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { getTheme } from "./utils";
+
 import Main from "../blog/Main";
+import Themes from "../components/themes/Themes";
+import ThemeContext from "../components/themes/ThemeContext";
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -12,11 +15,15 @@ const useStyles = makeStyles({
   },
 });
 export default function Home() {
-  function switchNightMode(mode) {
-    getTheme(mode);
+  const { selectedTheme, setSelectedTheme } = React.useContext(ThemeContext);
+
+  function switchNightMode() {
+    console.log(`Previous Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
+    setSelectedTheme(Themes.dark);
   }
-  function switchLightMode(mode) {
-    getTheme(mode);
+  function switchLightMode() {
+    console.log(`Previous Theme: ${JSON.stringify(selectedTheme.palette.type)}`);
+    setSelectedTheme(Themes.light);
   }
   const classes = useStyles();
   return (
@@ -24,7 +31,7 @@ export default function Home() {
       <Button
         variant="contained"
         onClick={() => {
-          switchNightMode(1);
+          switchNightMode();
         }}
       >
         Night Mode
@@ -32,7 +39,7 @@ export default function Home() {
       <Button
         variant="contained"
         onClick={() => {
-          switchLightMode(0);
+          switchLightMode();
         }}
       >
         Light Mode
