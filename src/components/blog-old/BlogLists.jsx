@@ -20,7 +20,7 @@ import {
   useLocation,
   useParams
 } from "react-router-dom";
-import "../App";
+
 export default function BlogLists({ blogPostsArray }){
   const match = useRouteMatch();
   const [blogPosts, setBlogs] = React.useState(blogPostsArray);
