@@ -1,8 +1,8 @@
 import React from "react";
 
 const themeContext = React.createContext({
-  theme: null,
-  setTheme: () => {},
+  selectedTheme: null,
+  setSelectedTheme: () => {},
 });
 
 export default themeContext;
