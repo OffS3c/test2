@@ -15,21 +15,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Main(props) {
   const classes = useStyles();
-  const { posts, title } = props;
+  const { post, title } = props;
 
   return (
     <Grid item xs={12} md={8}>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom id="ftfh">
         {title}
       </Typography>
       <Divider />
-      {posts.map((post) => {
-        return (
-          <Markdown className={classes.markdown} key={post.substring(0, 40)}>
-            {post}
-          </Markdown>
-        );
-      })}
+      <Markdown className={classes.markdown}>
+        {post.body}
+      </Markdown>
     </Grid>
   );
 }

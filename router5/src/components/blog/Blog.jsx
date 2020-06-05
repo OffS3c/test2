@@ -1,11 +1,18 @@
 import React from 'react';
-import { Switch as Routes, Route } from "react-router-dom";
+import { 
+  Switch as Routes,
+  Route,
+  useHistory,
+  useParams,
+  Redirect,
+} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
@@ -35,35 +42,41 @@ const sections = [
   { title: 'Travel', url: '#' },
 ];
 
-const mainFeaturedPost = {
-  title: 'Title of a longer featured blog post',
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: 'https://source.unsplash.com/random',
-  imgText: 'main image description',
-  linkText: 'Continue reading…',
-};
-
-const featuredPosts = [
+const allPosts = [
   {
-    title: 'Featured post',
+    slug: 'post-1',
+    title: 'Post 1 Title of a longer blog post',
+    date: 'Nov 12',
+    description:
+      "Informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+    linkText: 'continue reading...',
+    body: post1,
+  },
+  {
+    slug: 'post-2',
+    title: 'Post 2 Featured post',
     date: 'Nov 12',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
     image: 'https://source.unsplash.com/random',
     imageText: 'Image Text',
+    linkText: 'continue reading...',
+    body: post2,
   },
   {
-    title: 'Post title',
-    date: 'Nov 11',
+    slug: 'post-3',
+    title: 'Post 3 Featured post',
+    date: 'Nov 12',
     description:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
     image: 'https://source.unsplash.com/random',
     imageText: 'Image Text',
+    linkText: 'continue reading...',
+    body: post3,
   },
 ];
-
-const posts = [post1, post2, post3];
 
 const sidebar = {
   title: 'About',
@@ -91,20 +104,51 @@ const sidebar = {
 
 export default function Blog() {
   const classes = useStyles();
+  const { postSlug } = useParams();
+  const history = useHistory();
+  
+  if (!allPosts.map(post => post.slug).includes(postSlug)) {
+    history.push(`/404`);
+  }
+
+  // dummy data to populate while we wait for the API call to complete
+  const [mainFeaturedPost, setMainFeaturedPost] = React.useState({
+    slug: `Loading...`,
+    title: `Loading...`,
+    date: `Loading...`,
+    description:
+      `Loading...`,
+    image: `Loading...`,
+    imageText: `Loading...`,
+    linkText: `Loading...`,
+    body: `Loading...`,
+  });
+  
+  React.useEffect(() => {
+    setMainFeaturedPost(allPosts.filter(post => post.slug === postSlug)[0]);
+  });
 
   return (
     <React.Fragment>
+      <Routes>
+        {allPosts.map((post)=>{
+          return <Route exact path={`/${post.slug}`}></Route>
+        })}
+        <Route path="*">
+          <Redirect to="/404" />
+        </Route>
+      </Routes>
       <Container maxWidth="lg">
         <Header title="Blog" sections={sections} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
+            {allPosts.filter(el => el !== mainFeaturedPost).map((post) => (
               <FeaturedPost key={post.title} post={post} />
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="From the firehose" posts={posts} />
+            <Main title="From the firehose" post={mainFeaturedPost} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}

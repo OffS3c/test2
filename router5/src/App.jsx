@@ -2,43 +2,39 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch as Routes,
+  Redirect,
   Route,
-  useLocation,
 } from "react-router-dom";
 
+import NoMatch from "./components/NoMatch";
 import MyTheme from "./components/themes";
 import Blog from "./components/blog/Blog";
 
 export default function App() {
   return (
     <>
-      <Router>
-        <MyTheme
-          // read the docs about Main Component in ./components/themes/index.jsx
-          defaultTheme={"light"}
-          currentTheme={"light"}
-        >
+      <MyTheme
+      // read the docs about Main Component in ./components/themes/index.jsx
+      defaultTheme={"light"}
+      currentTheme={"light"}
+      >
+        <Router>
           <Routes>
+            <Route exact path="/404">
+              <NoMatch />
+            </Route>
             <Route exact path="/">
+              <Redirect to="/post-1" />
+            </Route>
+            <Route path="/:postSlug">
               <Blog />
             </Route>
             <Route path="*">
-              <NoMatch />
+              <Redirect to="/404" />
             </Route>
           </Routes>
-        </MyTheme>
-      </Router>
+        </Router>
+      </MyTheme>
     </>
-  );
-}
-
-function NoMatch() {
-  let location = useLocation();
-  return (
-    <div>
-      <h3>
-        No match for <code>{location.pathname}</code>
-      </h3>
-    </div>
   );
 }
