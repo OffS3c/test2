@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch as Routes, Route } from "react-router-dom";
 
 import MyTheme from "./components/themes";
-import Home from "./components/Home";
+import Blog from "./components/blog/Blog";
 
 export default function App() {
   return (
@@ -13,7 +13,11 @@ export default function App() {
           defaultTheme={"light"}
           currentTheme={"light"}
         >
-          <Home />
+          <Routes>
+            <Route exact path="/*">
+              <Blog />
+            </Route>
+          </Routes>
         </MyTheme>
       </Router>
     </>

@@ -1,6 +1,6 @@
 import React from 'react';
+import { Switch as Routes, Route } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -94,7 +94,6 @@ export default function Blog() {
 
   return (
     <React.Fragment>
-      <CssBaseline />
       <Container maxWidth="lg">
         <Header title="Blog" sections={sections} />
         <main>
