@@ -103,14 +103,7 @@ const sidebar = {
 };
 
 export default function Blog() {
-  const classes = useStyles();
-  const { postSlug } = useParams();
-  const history = useHistory();
   
-  if (!allPosts.map(post => post.slug).includes(postSlug)) {
-    history.push(`/404`);
-  }
-
   // dummy data to populate while we wait for the API call to complete
   const [mainFeaturedPost, setMainFeaturedPost] = React.useState({
     slug: `Loading...`,
@@ -123,10 +116,18 @@ export default function Blog() {
     linkText: `Loading...`,
     body: `Loading...`,
   });
-  
+
+  const classes = useStyles();
+  const { postSlug } = useParams();
+  const history = useHistory();
+
   React.useEffect(() => {
     setMainFeaturedPost(allPosts.filter(post => post.slug === postSlug)[0]);
-  });
+  }, [postSlug]);
+  
+  if (!allPosts.map(post => post.slug).includes(postSlug)) {
+    history.push(`/404`);
+  }
 
   return (
     <React.Fragment>
