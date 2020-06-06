@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
@@ -34,12 +35,6 @@ const sections = [
   { title: 'Design', url: '#' },
   { title: 'Culture', url: '#' },
   { title: 'Business', url: '#' },
-  { title: 'Politics', url: '#' },
-  { title: 'Opinion', url: '#' },
-  { title: 'Science', url: '#' },
-  { title: 'Health', url: '#' },
-  { title: 'Style', url: '#' },
-  { title: 'Travel', url: '#' },
 ];
 
 const allPosts = [
@@ -131,6 +126,7 @@ export default function Blog() {
 
   return (
     <React.Fragment>
+      <CssBaseline />
       <Routes>
         {allPosts.map((post)=>{
           return <Route exact path={`/${post.slug}`}></Route>
