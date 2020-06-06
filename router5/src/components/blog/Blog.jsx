@@ -124,7 +124,7 @@ export default function Blog() {
     } else {
       setMainFeaturedPost(allPosts.filter(post => post.slug === postSlug)[0]);
     }
-  }, [postSlug]);
+  }, [postSlug, history]);
   
   if (!allPosts.map(post => post.slug).includes(postSlug) && postSlug !== 'featured-post') {
     history.push(`/404`);
