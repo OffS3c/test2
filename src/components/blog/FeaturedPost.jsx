@@ -34,7 +34,7 @@ export default function FeaturedPost(props) {
     if (confirm(`Are you sure you want to delete post id ${id}?`)) {
       e.preventDefault();
       dispatch(deletePost(id));
-      console.log(`${id} deleted!`);
+      console.log(`Post id: ${id} deleted!`);
     }
   }
 

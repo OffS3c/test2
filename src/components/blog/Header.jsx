@@ -45,7 +45,7 @@ export default function Header(props) {
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
-        <Button size="small" onClick={resetPosts}>Reset Redux</Button>
+        <Button size="small" onClick={resetPosts}>Reset Posts</Button>
         <Typography
           component="h2"
           variant="h5"
