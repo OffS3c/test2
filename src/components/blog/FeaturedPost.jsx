@@ -30,12 +30,9 @@ export default function FeaturedPost(props) {
   const dispatch = useDispatch();
 
   function handleContextMenuClick(e, id) {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm(`Are you sure you want to delete post id ${id}?`)) {
-      e.preventDefault();
-      dispatch(deletePost(id));
-      console.log(`Post id: ${id} deleted!`);
-    }
+    e.preventDefault();
+    dispatch(deletePost(id));
+    console.log(`Post id: ${id} deleted!`);
   }
 
   return (
