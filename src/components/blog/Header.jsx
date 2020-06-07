@@ -7,7 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { useDispatch } from "react-redux";
+
 import ThemeToggleIconButton from "../themes/ThemeSwitcher";
+import { resetAllPosts } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -29,11 +32,20 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const { sections, title } = props;
+  const dispatch = useDispatch();
+  
+  const resetPosts = React.useCallback(
+    () => {
+      dispatch(resetAllPosts());
+      console.log("ALL POSTS RESET!");
+    },
+    [dispatch],
+  );
 
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
-        <Button size="small">Subscribe</Button>
+        <Button size="small" onClick={resetPosts}>Reset Redux</Button>
         <Typography
           component="h2"
           variant="h5"

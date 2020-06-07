@@ -4,9 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { useDispatch } from "react-redux";
-
-import { resetAllPosts } from "../../actions";
 
 function Copyright() {
   return (
@@ -32,15 +29,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer(props) {
   const classes = useStyles();
   const { description, title } = props;
-  const dispatch = useDispatch();
-  
-  const resetPosts = React.useCallback(
-    () => {
-      dispatch(resetAllPosts());
-      console.log("ALL POSTS RESET!");
-    },
-    [dispatch],
-  );
 
   return (
     <footer className={classes.footer}>
@@ -50,9 +38,6 @@ export default function Footer(props) {
         </Typography>
         <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
           {description}
-        </Typography>
-        <Typography onClick={resetPosts} variant="subtitle1" align="center" color="textSecondary" component="p">
-          Reset Redux Store
         </Typography>
         <Copyright />
       </Container>
