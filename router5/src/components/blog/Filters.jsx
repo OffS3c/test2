@@ -162,7 +162,6 @@ export default function Filters() {
     } else {
       if (location.pathname === "/") {
         const post = AllPosts[0];
-        setMainFeaturedPost(post);
         history.push(`/${post.category}/${post.slug}`);
       } else {
         history.push(`/404`);
