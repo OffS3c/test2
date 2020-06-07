@@ -3,6 +3,7 @@ import {
   Switch as Routes,
   Route,
   useHistory,
+  useLocation,
   useParams,
   Redirect,
 } from "react-router-dom";
@@ -133,6 +134,7 @@ export default function Filters() {
   
   const { categorySlug, postSlug } = useParams();
   const history = useHistory();
+  const location = useLocation();
 
   // dummy data to populate while we wait for the API call to complete
   const [mainFeaturedPost, setMainFeaturedPost] = React.useState({
@@ -158,9 +160,13 @@ export default function Filters() {
       setMainFeaturedPost(post);
       history.push(`/${categorySlug}/${post.slug}`);
     } else {
-      const post = AllPosts[0];
-      setMainFeaturedPost(post);
-      history.push(`/${post.category}/${post.slug}`);
+      if (location.pathname === "/") {
+        const post = AllPosts[0];
+        setMainFeaturedPost(post);
+        history.push(`/${post.category}/${post.slug}`);
+      } else {
+        history.push(`/404`);
+      }
     }
   }, [categorySlug, history, postSlug]);
   
