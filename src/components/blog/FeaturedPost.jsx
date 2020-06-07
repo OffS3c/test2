@@ -29,9 +29,10 @@ export default function FeaturedPost(props) {
   const { post } = props;
   const dispatch = useDispatch();
 
-  function handleContextMenuClick(id) {
+  function handleContextMenuClick(e, id) {
     // eslint-disable-next-line no-restricted-globals
     if (confirm(`Are you sure you want to delete post id ${id}?`)) {
+      e.preventDefault();
       dispatch(deletePost(id));
       console.log(`${id} deleted!`);
     }
@@ -39,7 +40,7 @@ export default function FeaturedPost(props) {
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href={`/${post.category}/${post.slug}`} onContextMenu={() => { handleContextMenuClick(post.id) }}>
+      <CardActionArea component="a" href={`/${post.category}/${post.slug}`} onContextMenu={(e) => { handleContextMenuClick(e, post.id) }}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
