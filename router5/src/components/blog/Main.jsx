@@ -24,6 +24,7 @@ export default function Main(props) {
       </Typography>
       <Divider />
       <Markdown className={classes.markdown}>
+        
         {post.body}
       </Markdown>
     </Grid>

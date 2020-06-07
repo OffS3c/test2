@@ -8,7 +8,7 @@ import {
 
 import NoMatch from "./components/NoMatch";
 import MyTheme from "./components/themes";
-import Blog from "./components/blog/Blog";
+import Blog from "./components/blog/Filters";
 
 export default function App() {
   return (
