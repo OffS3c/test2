@@ -5,6 +5,14 @@ function resetAllPosts() {
   };
 }
 
+function deletePost(id) { 
+  return {
+    type: 'DELETE_POST',
+    id,
+  };
+}
+
 export {
+  deletePost,
   resetAllPosts,
 };

@@ -29,6 +29,8 @@ const posts = (state = [], action) => {
           ? {...post, title: `${post.title} (edited)` }
           : post
       );
+    case 'DELETE_POST':
+      return state.filter(post => post.id !== action.id);
     default:
       return state;
   }

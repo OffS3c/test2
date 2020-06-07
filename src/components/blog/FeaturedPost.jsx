@@ -8,6 +8,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
+import { useDispatch } from "react-redux";
+
+import { deletePost } from "../../actions";
 
 const useStyles = makeStyles({
   card: {
@@ -24,10 +27,19 @@ const useStyles = makeStyles({
 export default function FeaturedPost(props) {
   const classes = useStyles();
   const { post } = props;
+  const dispatch = useDispatch();
+
+  function handleContextMenuClick(id) {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm(`Are you sure you want to delete post id ${id}?`)) {
+      dispatch(deletePost(id));
+      console.log(`${id} deleted!`);
+    }
+  }
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href={`/${post.category}/${post.slug}`}>
+      <CardActionArea component="a" href={`/${post.category}/${post.slug}`} onContextMenu={() => { handleContextMenuClick(post.id) }}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
