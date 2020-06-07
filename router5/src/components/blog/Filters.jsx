@@ -157,7 +157,6 @@ export default function Filters() {
       history.push(`/${categorySlug}/${post.slug}`);
     } else if (categories.includes(categorySlug) && typeof postSlug === 'undefined') {
       const post = AllPosts.filter(post => post.category === categorySlug)[0];
-      setMainFeaturedPost(post);
       history.push(`/${categorySlug}/${post.slug}`);
     } else {
       if (location.pathname === "/") {
