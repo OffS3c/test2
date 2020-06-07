@@ -169,10 +169,6 @@ export default function Filters() {
       }
     }
   }, [categorySlug, history, postSlug]);
-  
-  if (!AllPosts.map(post => post.slug).includes(postSlug) && !categories.includes(categorySlug)) {
-    history.push(`/404`);
-  }
 
   return (
     <>
