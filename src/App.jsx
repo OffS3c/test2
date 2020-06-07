@@ -9,11 +9,12 @@ import { createStore } from 'redux';
 import { Provider as ReduxProvider } from 'react-redux';
 
 import rootReducer from './reducers';
+import initialState from './initialState';
 import NoMatch from "./components/NoMatch";
 import MyTheme from "./components/themes";
 import Blog from "./components/blog";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, initialState);
 
 export default function App() {
   return (

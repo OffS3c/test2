@@ -20,7 +20,7 @@ export default function Filters({
   const { categorySlug, postSlug } = useParams();
   const history = useHistory();
   const location = useLocation();
-
+  
   // dummy data to populate while we wait for the API call to complete
   const [mainFeaturedPost, setMainFeaturedPost] = React.useState({
     id:`Loading...`,
@@ -34,7 +34,7 @@ export default function Filters({
     body: `Loading...`,
     category: `Loading...`,
   });
-
+  
   React.useEffect(() => {
     if (Categories.includes(categorySlug) && AllPosts.map(post => post.slug).includes(postSlug)) {
       const post = AllPosts.filter(post => post.slug === postSlug)[0];
