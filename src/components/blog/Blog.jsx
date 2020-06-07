@@ -44,7 +44,7 @@ export default function Blog({ sidebar, allPosts, mainFeaturedPost, sections }) 
           </Grid>
         </main>
       </Container>
-      <Footer title="Footer" description="Something here to give the footer a purpose!" />
+      <Footer title="OffS3c LLC" description="Delivering Alien Tech" />
     </React.Fragment>
   );
 }
