@@ -24,7 +24,7 @@ export default function App() {
               <NoMatch />
             </Route>
             <Route exact path="/">
-              <Redirect to="/featured-post" />
+              <Blog />
             </Route>
             <Route path="/:categorySlug/:postSlug">
               <Blog />

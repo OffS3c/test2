@@ -20,21 +20,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Blog({ sidebar, allPosts, mainFeaturedPost, sections }) {
   
   const classes = useStyles();
-  if (typeof sidebar === 'undefined') {
-    return null;
-  }
-
-  if (typeof allPosts === 'undefined') {
-    return null;
-  }
-
-  if (typeof mainFeaturedPost === 'undefined') {
-    return null;
-  }
-
-  if (typeof sections === 'undefined') {
-    return null;
-  }
 
   return (
     <React.Fragment>
@@ -49,7 +34,6 @@ export default function Blog({ sidebar, allPosts, mainFeaturedPost, sections }) 
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-          {console.error(mainFeaturedPost)}
             <Main title="From the firehose" post={mainFeaturedPost} />
             <Sidebar
               title={sidebar.title}

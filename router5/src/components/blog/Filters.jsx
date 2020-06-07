@@ -19,7 +19,7 @@ const sections = [
   { title: 'Technology', url: '/technology' },
   { title: 'Design', url: '/design' },
   { title: 'Culture', url: '/culture' },
-  { title: 'Business', url: '/bussiness' },
+  { title: 'Business', url: '/business' },
 ];
 
 const AllPosts = [
@@ -127,13 +127,12 @@ const sidebar = {
   ],
 };
 
+const categories = [...new Set(AllPosts.map(pp => pp.category))];
+
 export default function Filters() {
   
   const { categorySlug, postSlug } = useParams();
   const history = useHistory();
-
-  const [allPosts, setAllPosts] = React.useState(AllPosts);
-  const [categories, setCategories] = React.useState([...new Set(AllPosts.map(pp => pp.category))]);
 
   // dummy data to populate while we wait for the API call to complete
   const [mainFeaturedPost, setMainFeaturedPost] = React.useState({
@@ -150,36 +149,29 @@ export default function Filters() {
   });
 
   React.useEffect(() => {
-    if (categorySlug === 'featured-post') {
-      const fp = allPosts[0];
-      setMainFeaturedPost(fp);
-      setAllPosts(AllPosts.filter(el => el.category === fp.category));
-      history.push(`/${fp.category}/${fp.slug}`);
-      // alert("first if")
-    } 
-    else if(categories.includes(categorySlug)) {
-      setAllPosts(AllPosts.filter(el => el.category === categorySlug));
-      const post = allPosts[0];
-      setMainFeaturedPost(allPosts);
+    if (categories.includes(categorySlug) && AllPosts.map(post => post.slug).includes(postSlug)) {
+      const post = AllPosts.filter(post => post.slug === postSlug)[0];
+      setMainFeaturedPost(post);
       history.push(`/${categorySlug}/${post.slug}`);
-      // alert("2nd if")
-    } 
-    else {
-      setAllPosts(allPosts.filter(el => el.category === categorySlug));
-      setMainFeaturedPost(allPosts.filter(post => post.slug === postSlug)[0]);
-      history.push(`/${allPosts.category}/${allPosts.slug}`);
-      // alert(JSON.stringify(allPosts))
+    } else if (categories.includes(categorySlug) && typeof postSlug === 'undefined') {
+      const post = AllPosts.filter(post => post.category === categorySlug)[0];
+      setMainFeaturedPost(post);
+      history.push(`/${categorySlug}/${post.slug}`);
+    } else {
+      const post = AllPosts[0];
+      setMainFeaturedPost(post);
+      history.push(`/${post.category}/${post.slug}`);
     }
-  }, [allPosts, categories, categorySlug, history, postSlug]);
+  }, [categorySlug, history, postSlug]);
   
-  if (!allPosts.map(post => post.slug).includes(postSlug) && categorySlug !== 'featured-post' && !categories.includes(categorySlug)) {
+  if (!AllPosts.map(post => post.slug).includes(postSlug) && !categories.includes(categorySlug)) {
     history.push(`/404`);
   }
 
   return (
     <>
-    <Routes>
-        {allPosts.map((post)=>{
+      <Routes>
+        {AllPosts.map((post)=>{
           return <Route exact key={post.id} path={`/${post.category}/${post.slug}`}></Route>;
         })}
         {categories.map((category)=>{
@@ -189,7 +181,7 @@ export default function Filters() {
           <Redirect to="/404" />
         </Route>
       </Routes>
-      <Blog allPosts={allPosts} mainFeaturedPost={mainFeaturedPost} sections={sections} sidebar={sidebar} />
+      <Blog allPosts={AllPosts} mainFeaturedPost={mainFeaturedPost} sections={sections} sidebar={sidebar} />
     </>
   );
 }
