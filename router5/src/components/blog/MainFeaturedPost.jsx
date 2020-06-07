@@ -53,7 +53,7 @@ export default function MainFeaturedPost(props) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="#ftfh">
+            <Link style={{ textTransform: 'capitalize' }} variant="subtitle1" href="#ftfh">
               {post.linkText}
             </Link>
           </div>

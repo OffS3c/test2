@@ -13,7 +13,6 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import CssBaseline from "@material-ui/core/CssBaseline";
-
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
@@ -31,14 +30,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const sections = [
-  { title: 'Technology', url: '#' },
-  { title: 'Design', url: '#' },
-  { title: 'Culture', url: '#' },
-  { title: 'Business', url: '#' },
+  { title: 'Technology', url: '/technology' },
+  { title: 'Design', url: '/design' },
+  { title: 'Culture', url: '/culture' },
+  { title: 'Business', url: '/bussiness' },
 ];
 
-const allPosts = [
+const AllPosts = [
   {
+    id: '1',
     slug: 'post-1',
     title: 'Post 1 Title of a longer blog post',
     date: 'Nov 12',
@@ -47,9 +47,11 @@ const allPosts = [
     image: 'https://source.unsplash.com/random',
     imageText: 'Image Text',
     linkText: 'continue reading...',
+    category: 'technology',
     body: post1,
   },
   {
+    id: '2',
     slug: 'post-2',
     title: 'Post 2 Featured post',
     date: 'Nov 12',
@@ -58,9 +60,11 @@ const allPosts = [
     image: 'https://source.unsplash.com/random',
     imageText: 'Image Text',
     linkText: 'continue reading...',
+    category: 'technology',
     body: post2,
   },
   {
+    id: '3',
     slug: 'post-3',
     title: 'Post 3 Featured post',
     date: 'Nov 12',
@@ -69,6 +73,46 @@ const allPosts = [
     image: 'https://source.unsplash.com/random',
     imageText: 'Image Text',
     linkText: 'continue reading...',
+    category: 'technology',
+    body: post3,
+  },
+  {
+    id: '4',
+    slug: 'post-4',
+    title: 'Post 1 Featured post',
+    date: 'Nov 12',
+    description:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+    linkText: 'continue reading...',
+    category: 'design',
+    body: post3,
+  },
+  {
+    id: '5',
+    slug: 'post-5',
+    title: 'Post 1 Featured post',
+    date: 'Nov 12',
+    description:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+    linkText: 'continue reading...',
+    category: 'culture',
+    body: post3,
+  },
+  {
+    id: '6',
+    slug: 'post-6',
+    title: 'Post 1 Featured post',
+    date: 'Nov 12',
+    description:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+    linkText: 'continue reading...',
+    category: 'culture',
     body: post3,
   },
 ];
@@ -97,57 +141,87 @@ const sidebar = {
   ],
 };
 
+const categories = [];
+AllPosts.forEach((el) => {
+  if (!categories.includes(el.category)) {
+    categories.push(el.category);
+  }
+});
+
 export default function Blog() {
   
   const classes = useStyles();
-  const { postSlug } = useParams();
+  const { categorySlug, postSlug } = useParams();
   const history = useHistory();
 
+  const [allPosts, setAllPosts] = React.useState(AllPosts);
   // dummy data to populate while we wait for the API call to complete
   const [mainFeaturedPost, setMainFeaturedPost] = React.useState({
+    id:`Loading...`,
     slug: `Loading...`,
     title: `Loading...`,
     date: `Loading...`,
-    description:
-      `Loading...`,
+    description: `Loading...`,
     image: `Loading...`,
     imageText: `Loading...`,
     linkText: `Loading...`,
     body: `Loading...`,
+    category: `Loading...`,
   });
 
   React.useEffect(() => {
-    if (postSlug === 'featured-post') {
+    if (categorySlug === 'featured-post') {
       const fp = allPosts[0];
       setMainFeaturedPost(fp);
-      history.push(`/${fp.slug}`);
+      setAllPosts(AllPosts.filter(el => el.category === fp.category));
+      history.push(`/${fp.category}/${fp.slug}`);
+      history.replace(`/${fp.category}/${fp.slug}`);
+      alert("first if")
+    } else if(categories.includes(categorySlug)) {
+      setAllPosts(AllPosts.filter(el => el.category === categorySlug));
+      const post = allPosts[0];
+      setMainFeaturedPost(post);
+      history.push(`/${categorySlug}/${post.slug}`);
+      history.replace(`/${categorySlug}/${post.slug}`);
+      alert("2nd if")
     } else {
+      setAllPosts(AllPosts.filter(el => el.category === categorySlug));
       setMainFeaturedPost(allPosts.filter(post => post.slug === postSlug)[0]);
     }
-  }, [postSlug, history]);
+    // if(categories.includes(categorySlug)){
+      
+    //   setAllPosts(allPosts.filter(el => el.slug === postSlug));
+    //   const post = allPosts[0];
+    //   setMainFeaturedPost(post);
+    //   history.push(`/${categorySlug}/${post.slug}`);
+    //   history.replace(`/${categorySlug}/${post.slug}`);
+    // }
+  }, [categorySlug, history, postSlug]);
   
-  if (!allPosts.map(post => post.slug).includes(postSlug) && postSlug !== 'featured-post') {
+  if (!allPosts.map(post => post.slug).includes(postSlug) && categorySlug !== 'featured-post' && !categories.includes(categorySlug)) {
     history.push(`/404`);
   }
-
   return (
     <React.Fragment>
       <CssBaseline />
       <Routes>
         {allPosts.map((post)=>{
-          return <Route exact path={`/${post.slug}`}></Route>
+          return <Route exact key={post.id} path={`/${post.category}/${post.slug}`}></Route>;
+        })}
+        {categories.map((category)=>{
+          return <Route exact key={category} path={`/${category}`}></Route>;
         })}
         <Route path="*">
           <Redirect to="/404" />
         </Route>
       </Routes>
       <Container maxWidth="lg">
-        <Header title="Blog" sections={sections} />
+        <Header title="Blog" sections={sections}  />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
-            {allPosts.filter(el => el !== mainFeaturedPost).map((post) => (
-              <FeaturedPost key={post.title} post={post} />
+            {allPosts.filter(el => el !== mainFeaturedPost && el.category === mainFeaturedPost.category).map((post) => (
+              <FeaturedPost key={post.id} post={post} />
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>

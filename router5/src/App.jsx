@@ -26,7 +26,10 @@ export default function App() {
             <Route exact path="/">
               <Redirect to="/featured-post" />
             </Route>
-            <Route path="/:postSlug">
+            <Route path="/:categorySlug/:postSlug">
+              <Blog />
+            </Route>
+            <Route path="/:categorySlug">
               <Blog />
             </Route>
             <Route path="*">
