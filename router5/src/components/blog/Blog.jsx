@@ -34,7 +34,7 @@ export default function Blog({ sidebar, allPosts, mainFeaturedPost, sections }) 
             ))}
           </Grid>
           <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="From the firehose" post={mainFeaturedPost} />
+            <Main title="" post={mainFeaturedPost} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}

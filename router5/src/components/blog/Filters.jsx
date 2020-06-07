@@ -17,10 +17,10 @@ import post2 from './blog-post.2.md.js';
 import post3 from './blog-post.3.md.js';
 
 const sections = [
-  { title: 'Technology', url: '/technology' },
-  { title: 'Design', url: '/design' },
-  { title: 'Culture', url: '/culture' },
-  { title: 'Business', url: '/business' },
+  { title: 'Technology', url: '/technology', slug: 'technology' },
+  { title: 'Design', url: '/design', slug: 'design' },
+  { title: 'Culture', url: '/culture', slug: 'culture' },
+  { title: 'Business', url: '/business', slug: 'business' },
 ];
 
 const AllPosts = [
@@ -128,7 +128,7 @@ const sidebar = {
   ],
 };
 
-const categories = [...new Set(AllPosts.map(pp => pp.category))];
+const categories = sections.map(section => section.slug);
 
 export default function Filters() {
   
@@ -155,8 +155,24 @@ export default function Filters() {
       const post = AllPosts.filter(post => post.slug === postSlug)[0];
       setMainFeaturedPost(post);
     } else if (categories.includes(categorySlug) && typeof postSlug === 'undefined') {
-      const post = AllPosts.filter(post => post.category === categorySlug)[0];
-      history.push(`/${categorySlug}/${post.slug}`);
+      let post = AllPosts.filter(post => post.category === categorySlug);
+      if (post.length < 1) {
+        setMainFeaturedPost({
+          id:`0`,
+          slug: `no-post-found-for-this-category`,
+          title: `No post found for this category`,
+          date: ``,
+          description: ``,
+          image: ``,
+          imageText: `no-post`,
+          linkText: ``,
+          body: ``,
+          category: ``,
+        });
+      } else {
+        post = post[0];
+        history.push(`/${categorySlug}/${post.slug}`);
+      }
     } else {
       if (location.pathname === "/") {
         const post = AllPosts[0];
